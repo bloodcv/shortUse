@@ -10,6 +10,13 @@ import menuList from "../../router/menuConfig";
 const MenuItem = Menu.Item;
 
 class LeftNav extends Component<any, any> {
+  menuNodes: any[];
+
+  constructor(props: any) {
+    super(props);
+    this.menuNodes = [];
+  }
+
   /**
    * 根据menu的数据数组生成对应的标签数组
    * 使用reduce + 递归调用
@@ -29,8 +36,6 @@ class LeftNav extends Component<any, any> {
       return pre;
     }, []);
   };
-
-  menuNodes: any;
 
   /**
    * 在第一次render()之前执行一次

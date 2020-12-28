@@ -18,7 +18,6 @@ class Home extends Component<any> {
   };
 
   onCollapse = (collapsed: Boolean) => {
-    console.log(collapsed);
     this.setState({ collapsed });
   };
 

@@ -9,6 +9,7 @@ const {
 } = require('customize-cra');
 const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const LodashWebpackPlugin = require('lodash-webpack-plugin');
+const rewireReactHotLoader = require('react-app-rewire-hot-loader')
 // 打包配置
 const addCustomize = () => config => {
   if (process.env.NODE_ENV === 'production') {
@@ -36,6 +37,12 @@ const addCustomize = () => config => {
 const rewiredMap = () => config => {
   config.devtool = config.mode === 'development' ? 'cheap-module-source-map' : false
  
+  return config
+}
+
+// 热跟新
+const hotLoader = () => (config, env) => {
+  config = rewireReactHotLoader(config, env)
   return config
 }
 
@@ -81,6 +88,8 @@ module.exports = {
     // addPostcssPlugins([require('postcss-pxtorem')({ rootValue: 75, propList: ['*'], minPixelValue: 2, selectorBlackList: ['am-'] })]),
     addCustomize(),
     rewiredMap(),
+    // 热跟新
+    hotLoader(),
     addWebpackPlugin(
       new LodashWebpackPlugin({       
         collections: true,       
